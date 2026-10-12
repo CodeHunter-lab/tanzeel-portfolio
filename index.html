@@ -4,1220 +4,632 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090b12">
-  <meta name="description" content="Mohammad Tanzeel — video editing, content creation, and AI-assisted web projects from Multan, Pakistan.">
-  <title>Mohammad Tanzeel | Video Editor & Developer</title>
+  <meta name="theme-color" content="#080a12">
+  <meta name="description" content="Mohammad Tanzeel's personal portfolio showcasing video editing, content creation, and AI-assisted web projects.">
+  <meta name="author" content="Mohammad Tanzeel">
+
+  <title>Mohammad Tanzeel — Creative Technologist</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #090b12;
-      --surface: #111522;
-      --surface-2: #171d2c;
-      --cyan: #00eaff;
-      --purple: #a855f7;
-      --pink: #ff4da6;
-      --text: #f6f7ff;
-      --muted: #a3acc2;
-      --border: rgba(0, 234, 255, .17);
-      --gradient: linear-gradient(120deg, var(--cyan), var(--purple), var(--pink));
-      --radius: 20px;
-      --width: 1160px;
-    }
+  <link rel="stylesheet" href="style.css">
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-
-    body {
-      font-family: "Rajdhani", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    body.modal-open { overflow: hidden; }
-
-    a { color: inherit; }
-    button, input, textarea { font: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-
-    a:focus-visible, button:focus-visible,
-    input:focus-visible, textarea:focus-visible {
-      outline: 2px solid var(--cyan);
-      outline-offset: 4px;
-    }
-
-    ::selection { background: var(--cyan); color: var(--bg); }
-
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 15% 10%, rgba(0,234,255,.09), transparent 38%),
-        radial-gradient(ellipse at 85% 45%, rgba(168,85,247,.10), transparent 40%),
-        radial-gradient(ellipse at 50% 100%, rgba(255,77,166,.05), transparent 40%);
-    }
-
-    .background::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: .12;
-      background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
-    }
-
-    .container { width: min(var(--width), 90%); margin-inline: auto; }
-
-    .site-header {
-      position: fixed;
-      inset: 0 0 auto;
-      z-index: 100;
-      background: rgba(9,11,18,.82);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(18px);
-      transition: background .3s;
-    }
-
-    .nav {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .logo {
-      font-family: "Orbitron", sans-serif;
-      font-weight: 900;
-      letter-spacing: 2px;
-      font-size: 1.3rem;
-      text-decoration: none;
-      background: var(--gradient);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      white-space: nowrap;
-    }
-
-    .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
-
-    .nav-links a {
-      font-size: .92rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-decoration: none;
-      color: var(--muted);
-      transition: color .25s;
-    }
-
-    .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
-
-    .menu-toggle {
-      display: none;
-      width: 44px;
-      height: 44px;
-      color: var(--cyan);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 1.4rem;
-    }
-
-    section { padding: 100px 0; position: relative; }
-
-    .hero {
-      min-height: 100svh;
-      padding-top: 125px;
-      display: grid;
-      align-items: center;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr .92fr;
-      gap: 58px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--cyan);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-weight: 700;
-      font-size: .9rem;
-      margin-bottom: 22px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 28px;
-      height: 2px;
-      background: var(--cyan);
-      box-shadow: 0 0 12px var(--cyan);
-    }
-
-    h1, h2, h3, .card-title {
-      font-family: "Orbitron", sans-serif;
-      line-height: 1.25;
-    }
-
-    h1 { font-size: clamp(2.5rem, 5.1vw, 4.7rem); letter-spacing: -2px; }
-    .gradient-text {
-      background: var(--gradient);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero h1 span { display: inline; }
-
-    .hero-subtitle {
-      margin-top: 22px;
-      color: var(--cyan);
-      font-size: clamp(1.15rem, 2vw, 1.45rem);
-      font-weight: 700;
-    }
-
-    .hero-description {
-      color: var(--muted);
-      font-size: 1.16rem;
-      margin-top: 15px;
-      max-width: 590px;
-    }
-
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 48px;
-      padding: 12px 22px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform .25s, box-shadow .25s, background .25s;
-    }
-
-    .button:hover { transform: translateY(-3px); }
-
-    .button-primary {
-      color: #070a10;
-      background: var(--gradient);
-      box-shadow: 0 5px 25px rgba(0,234,255,.14);
-    }
-
-    .button-primary:hover { box-shadow: 0 8px 32px rgba(0,234,255,.28); }
-
-    .button-secondary {
-      background: rgba(255,255,255,.025);
-      color: var(--text);
-      border-color: var(--border);
-    }
-
-    .button-secondary:hover { border-color: var(--cyan); }
-
-    .hero-note { margin-top: 22px; font-size: .96rem; color: var(--muted); }
-
-    .hero-media {
-      position: relative;
-      padding: 9px;
-      border: 1px solid rgba(0,234,255,.35);
-      border-radius: 24px;
-      background: linear-gradient(145deg, rgba(0,234,255,.12), rgba(168,85,247,.08));
-      box-shadow: 0 20px 70px rgba(0,0,0,.3), 0 0 35px rgba(0,234,255,.08);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .hero-media iframe {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border: 0;
-      border-radius: 16px;
-      background: var(--surface);
-    }
-
-    .media-caption {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 15px 8px 7px;
-      font-weight: 700;
-    }
-
-    .media-caption span:last-child { color: var(--cyan); }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-9px); }
-    }
-
-    .section-heading { text-align: center; margin-bottom: 48px; }
-
-    .section-heading h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      margin-bottom: 12px;
-    }
-
-    .section-heading p { color: var(--muted); font-size: 1.13rem; }
-
-    .section-kicker {
-      color: var(--cyan);
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 3px;
-      font-size: .8rem;
-      margin-bottom: 12px;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .panel, .skill-card, .project-card, .service-card, .contact-card {
-      background: linear-gradient(145deg, rgba(23,29,44,.94), rgba(14,18,29,.96));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-    }
-
-    .about-aside { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
-
-    .about-aside .big-mark {
-      font-family: "Orbitron", sans-serif;
-      font-size: 3.4rem;
-      font-weight: 900;
-      line-height: 1.1;
-    }
-
-    .about-aside p, .about-copy p { color: var(--muted); }
-    .about-aside p { margin-top: 15px; }
-
-    .mini-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 11px;
-      border: 1px solid var(--border);
-      background: rgba(0,234,255,.04);
-      border-radius: 999px;
-      font-size: .84rem;
-      color: #c7faff;
-      font-weight: 700;
-    }
-
-    .about-copy { padding: 35px; }
-    .about-copy h3 { font-size: 1.35rem; margin-bottom: 16px; color: var(--cyan); }
-    .about-copy p + p { margin-top: 15px; }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .skill-card { padding: 25px; transition: transform .3s, border-color .3s; }
-    .skill-card:hover { transform: translateY(-6px); border-color: var(--cyan); }
-    .skill-icon { font-size: 2rem; margin-bottom: 12px; }
-    .skill-card h3 { font-size: 1rem; margin-bottom: 9px; }
-    .skill-card p { color: var(--muted); font-size: .98rem; }
-
-    .tools-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
-
-    .tool {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 15px 22px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: border-color .25s, transform .25s;
-    }
-
-    .tool:hover { border-color: var(--cyan); transform: translateY(-3px); }
-    .tool span { font-size: 1.5rem; }
-
-    .portfolio-section { background: rgba(0,234,255,.018); }
-
-    .filters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: -12px 0 30px;
-    }
-
-    .filter-btn {
-      padding: 9px 18px;
-      color: var(--muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: .25s;
-    }
-
-    .filter-btn:hover, .filter-btn[aria-pressed="true"] {
-      color: var(--bg);
-      background: var(--cyan);
-      border-color: var(--cyan);
-    }
-
-    .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-
-    .project-card {
-      min-width: 0;
-      overflow: hidden;
-      transition: transform .3s, border-color .3s, box-shadow .3s;
-    }
-
-    .project-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(0,234,255,.55);
-      box-shadow: 0 20px 55px rgba(0,0,0,.23);
-    }
-
-    .project-card[hidden] { display: none; }
-
-    .project-image {
-      position: relative;
-      overflow: hidden;
-      background: #0b0e17;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .project-image > img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      transition: transform .5s;
-    }
-
-    .project-card:hover .project-image > img { transform: scale(1.035); }
-
-    .project-label {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(9,11,18,.86);
-      border: 1px solid var(--border);
-      font-size: .8rem;
-      font-weight: 700;
-      color: var(--cyan);
-    }
-
-    .project-content { padding: 25px; }
-    .project-content h3 { font-size: 1.15rem; margin-bottom: 10px; }
-    .project-content p { color: var(--muted); }
-
-    .project-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-
-    .small-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 9px 14px;
-      border: 1px solid var(--border);
-      background: rgba(0,234,255,.035);
-      color: var(--text);
-      border-radius: 10px;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: .25s;
-    }
-
-    .small-button:hover { border-color: var(--cyan); color: var(--cyan); }
-
-    .screenshot-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-      padding: 12px;
-      background: rgba(0,0,0,.2);
-    }
-
-    .screenshot-button {
-      position: relative;
-      padding: 0;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      border-radius: 9px;
-      cursor: zoom-in;
-    }
-
-    .screenshot-button img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 70px;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      transition: transform .3s, opacity .3s;
-    }
-
-    .screenshot-button:hover img { transform: scale(1.06); opacity: .8; }
-
-    .screenshot-caption {
-      padding: 0 12px 8px;
-      color: var(--muted);
-      font-size: .85rem;
-    }
-
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .service-card { padding: 25px; transition: .3s; }
-    .service-card:hover { border-color: var(--purple); transform: translateY(-5px); }
-    .service-number { color: var(--purple); font-family: "Orbitron", sans-serif; font-size: 1.5rem; margin-bottom: 14px; }
-    .service-card h3 { font-size: 1rem; margin-bottom: 10px; }
-    .service-card p { color: var(--muted); }
-
-    .contact-section { background: rgba(0,234,255,.018); }
-    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; }
-    .contact-card { padding: 30px; }
-    .contact-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
-    .contact-card > p { color: var(--muted); margin-bottom: 20px; }
-
-    .contact-links { display: grid; gap: 12px; }
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px;
-      background: rgba(255,255,255,.025);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      text-decoration: none;
-      transition: border-color .25s;
-      overflow-wrap: anywhere;
-    }
-
-    .contact-link:hover { border-color: var(--cyan); }
-    .contact-icon { font-size: 1.4rem; }
-    .contact-link strong { display: block; color: var(--cyan); }
-    .contact-link small { color: var(--muted); }
-
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-weight: 700; margin-bottom: 7px; }
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 13px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,.18);
-      color: var(--text);
-      outline: none;
-    }
-
-    .form-group input:focus, .form-group textarea:focus {
-      border-color: var(--cyan);
-      box-shadow: 0 0 0 3px rgba(0,234,255,.08);
-    }
-
-    .form-group textarea { min-height: 135px; resize: vertical; }
-    .form-note { color: var(--muted); font-size: .88rem; margin-top: 12px; }
-
-    footer {
-      padding: 28px 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    footer strong { color: var(--cyan); }
-
-    .back-to-top {
-      position: fixed;
-      bottom: 22px;
-      right: 22px;
-      z-index: 40;
-      width: 46px;
-      height: 46px;
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      color: var(--cyan);
-      background: rgba(17,21,34,.94);
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: .25s;
-    }
-
-    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      background: rgba(0,0,0,.88);
-      backdrop-filter: blur(10px);
-    }
-
-    .modal.open { display: flex; }
-
-    .modal-content {
-      position: relative;
-      max-width: min(1100px, 96vw);
-      max-height: 90svh;
-      text-align: center;
-    }
-
-    .modal-content img {
-      display: block;
-      max-width: 100%;
-      max-height: 78svh;
-      object-fit: contain;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-    }
-
-    .modal-caption { color: var(--muted); margin-top: 10px; }
-    .modal-close {
-      position: absolute;
-      top: -17px;
-      right: -17px;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s, transform .7s; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-      .reveal { opacity: 1; transform: none; }
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
-      .hero-copy { text-align: center; }
-      .hero-copy .eyebrow { justify-content: center; }
-      .hero-description { margin-inline: auto; }
-      .hero-actions { justify-content: center; }
-      .hero-media { width: min(100%, 650px); margin-inline: auto; }
-      .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .skills-grid, .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav-links {
-        position: absolute;
-        top: 76px;
-        left: 0;
-        right: 0;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        padding: 10px 5% 20px;
-        background: rgba(9,11,18,.98);
-        border-bottom: 1px solid var(--border);
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { display: block; padding: 12px 0; }
-      .menu-toggle { display: grid; place-items: center; }
-    }
-
-    @media (max-width: 600px) {
-      section { padding: 75px 0; }
-      .hero { padding-top: 112px; }
-      .hero-grid { gap: 28px; }
-      h1 { font-size: clamp(2.35rem, 11vw, 3.5rem); letter-spacing: -1.5px; }
-      .hero-description { font-size: 1.05rem; }
-      .section-heading { margin-bottom: 32px; }
-      .about-aside, .about-copy, .contact-card { padding: 23px; }
-      .skills-grid, .services-grid, .portfolio-grid { grid-template-columns: 1fr; }
-      .screenshot-gallery { gap: 5px; padding: 8px; }
-      .screenshot-button img { min-height: 58px; }
-      .project-content { padding: 21px; }
-      .button { padding: 11px 18px; }
-      .back-to-top { right: 14px; bottom: 14px; }
-      .modal { padding: 12px; }
-      .modal-close { top: -12px; right: -6px; }
-    }
-  </style>
+  <script src="script.js" defer></script>
 </head>
 
 <body>
-  <div class="background" aria-hidden="true"></div>
+  <div class="site-background" aria-hidden="true">
+    <div class="background-grid"></div>
+    <div class="glow glow-cyan"></div>
+    <div class="glow glow-purple"></div>
+    <div class="noise"></div>
+  </div>
 
-  <header class="site-header">
-    <nav class="nav container" aria-label="Main navigation">
-      <a class="logo" href="#home">TANZEEL<span>.</span></a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation"
-        aria-expanded="false" aria-controls="navLinks">☰</button>
+  <header class="site-header" id="top">
+    <div class="container nav-container">
+      <a class="brand" href="#top" aria-label="Tanzeel home">
+        <span class="brand-symbol">T<span>.</span></span>
+        <span class="brand-name">TANZEEL<span class="brand-period">/</span>LAB</span>
+      </a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#portfolio">Projects</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="primary-navigation" id="primary-navigation" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Expertise</a>
+        <a href="#projects">Projects</a>
+        <a href="#creative-work">Creative work</a>
+        <a class="nav-contact" href="#contact">Let's talk <span>↗</span></a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">Creative work & digital projects</div>
-          <h1>Mohammad<br><span class="gradient-text">Tanzeel</span></h1>
-          <p class="hero-subtitle">Video Editor · Content Creator · Web Project Builder</p>
-          <p class="hero-description">
-            I'm a student from Multan, Pakistan, building my skills in video editing,
-            content creation, and AI-assisted web projects. I enjoy turning ideas into
-            clear, engaging digital experiences.
-          </p>
-          <div class="hero-actions">
-            <a href="#portfolio" class="button button-primary">Explore My Work <span>↗</span></a>
-            <a href="#contact" class="button button-secondary">Contact Me</a>
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero section-padding" id="hero">
+      <div class="container hero-layout">
+        <div class="hero-content" data-reveal>
+          <div class="eyebrow">
+            <span class="status-dot"></span>
+            <span>PORTFOLIO / 2026</span>
+            <span class="eyebrow-divider">—</span>
+            <span>PAKISTAN</span>
           </div>
-          <p class="hero-note">Open to suitable freelance projects and entry-level opportunities.</p>
+
+          <h1>
+            Turning ideas<br>
+            into <span class="gradient-text">digital</span><br>
+            experiences<span class="heading-stop">.</span>
+          </h1>
+
+          <p class="hero-description">
+            I'm <strong>Mohammad Tanzeel</strong> — a video editor,
+            content creator, and aspiring developer exploring the
+            intersection of creativity and technology.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">
+              Explore my work <span aria-hidden="true">↗</span>
+            </a>
+            <a class="button button-secondary" href="#contact">
+              Get in touch
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <span><span class="meta-icon">✳</span> Creative mindset</span>
+            <span><span class="meta-icon">⌘</span> Tech curious</span>
+            <span><span class="meta-icon">◉</span> Always learning</span>
+          </div>
         </div>
 
-        <div class="hero-media">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/zU-J6qzVu4A"
-            title="Mohammad Tanzeel's featured video"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-          <div class="media-caption">
-            <span>Featured Video</span>
-            <span>▶ Watch sample</span>
+        <div class="hero-visual" data-reveal>
+          <div class="visual-orbit orbit-one"></div>
+          <div class="visual-orbit orbit-two"></div>
+
+          <div class="hero-visual-label visual-label-top">
+            <span class="label-dot"></span>
+            CREATIVE MODE: ON
+          </div>
+
+          <div class="hero-monogram">
+            <span class="monogram-glow"></span>
+            <span class="monogram-letter">T</span>
+            <span class="monogram-corner corner-tl"></span>
+            <span class="monogram-corner corner-tr"></span>
+            <span class="monogram-corner corner-bl"></span>
+            <span class="monogram-corner corner-br"></span>
+            <span class="monogram-index">FIG. 001 / TANZEEL</span>
+          </div>
+
+          <div class="floating-card floating-card-top">
+            <span class="floating-icon">✳</span>
+            <span>
+              <strong>Creative</strong>
+              <small>Visual storytelling</small>
+            </span>
+          </div>
+
+          <div class="floating-card floating-card-bottom">
+            <span class="floating-icon purple-icon">⌘</span>
+            <span>
+              <strong>Building</strong>
+              <small>Digital experiences</small>
+            </span>
+          </div>
+
+          <div class="hero-visual-label visual-label-bottom">
+            <span>MULTAN, PK</span>
+            <span>30.1575° N / 71.5249° E</span>
           </div>
         </div>
       </div>
+
+      <div class="container hero-bottom">
+        <span class="scroll-indicator">
+          <span class="scroll-line"></span>
+          SCROLL TO EXPLORE
+        </span>
+        <span class="hero-index">01 — INTRODUCTION</span>
+      </div>
     </section>
 
-    <section id="about">
+    <!-- MARQUEE -->
+    <div class="marquee-section" aria-label="Areas of interest">
+      <div class="marquee-track">
+        <span>VIDEO EDITING <i>✳</i></span>
+        <span>CONTENT CREATION <i>✳</i></span>
+        <span>WEB DEVELOPMENT <i>✳</i></span>
+        <span>AI-ASSISTED TOOLS <i>✳</i></span>
+        <span>VISUAL STORYTELLING <i>✳</i></span>
+        <span>VIDEO EDITING <i>✳</i></span>
+        <span>CONTENT CREATION <i>✳</i></span>
+        <span>WEB DEVELOPMENT <i>✳</i></span>
+        <span>AI-ASSISTED TOOLS <i>✳</i></span>
+        <span>VISUAL STORYTELLING <i>✳</i></span>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about-section section-padding" id="about">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="section-kicker">A little about me</div>
-          <h2>Curious Mind. <span class="gradient-text">Practical Builder.</span></h2>
-          <p>Learning by creating, testing, and improving.</p>
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="section-kicker">01 / ABOUT ME</span>
+            <h2>A little about<br>the <span class="gradient-text">person</span>.</h2>
+          </div>
+          <p class="section-aside">
+            Curious by nature.<br>
+            Creative by choice.
+          </p>
         </div>
 
         <div class="about-grid">
-          <div class="panel about-aside reveal">
-            <div class="big-mark gradient-text">MT.</div>
-            <p>
-              An ICS student interested in creative work, technology, and opportunities
-              to grow through real projects.
-            </p>
-            <div class="mini-tags">
-              <span class="tag">Multan, Pakistan</span>
-              <span class="tag">ICS Student</span>
-              <span class="tag">Self-Learning</span>
-            </div>
-          </div>
+          <article class="about-main glass-card" data-reveal>
+            <span class="card-index">THE STORY / 001</span>
 
-          <div class="panel about-copy reveal">
-            <h3>My Journey</h3>
+            <h3>Creativity meets curiosity.</h3>
+
             <p>
-              I’m Mohammad Tanzeel. I’m developing my skills in video editing and
-              digital content while exploring how AI tools can help turn an idea into
-              a working web project.
+              I enjoy turning raw ideas into something people can see,
+              use, and experience. My interests span video editing,
+              visual storytelling, content creation, and building
+              digital projects.
             </p>
+
             <p>
-              My portfolio brings these interests together: creative video work,
-              project presentation, and an AI Dispatch Copilot project that I helped
-              build using coding tools and AI-assisted development.
+              I'm currently studying ICS while developing my skills
+              through hands-on projects. I'm especially interested in
+              how modern tools and AI can help bring ambitious ideas
+              to life.
             </p>
-            <p>
-              I value clear communication, practical learning, and honest presentation
-              of what a project can do. I’m looking for opportunities to improve,
-              contribute, and build a stronger body of work.
-            </p>
-          </div>
+
+            <div class="about-signature">
+              <span class="signature-mark">T.</span>
+              <span>Learning. Building. Improving.</span>
+            </div>
+          </article>
+
+          <aside class="about-side">
+            <div class="info-card glass-card" data-reveal>
+              <span class="card-index">CURRENTLY</span>
+              <div class="info-icon">⌘</div>
+              <h3>Student & builder</h3>
+              <p>Studying computer science fundamentals and creating projects along the way.</p>
+            </div>
+
+            <div class="info-card glass-card" data-reveal>
+              <span class="card-index">BASED IN</span>
+              <div class="info-icon">◎</div>
+              <h3>Multan, Pakistan</h3>
+              <p>Connecting creativity, technology, and opportunities beyond borders.</p>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section id="skills">
+    <!-- EXPERTISE -->
+    <section class="skills-section section-padding" id="skills">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="section-kicker">What I'm learning</div>
-          <h2>Skills & <span class="gradient-text">Interests</span></h2>
-          <p>A practical mix of creative and digital skills.</p>
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="section-kicker">02 / EXPERTISE</span>
+            <h2>Things I <span class="gradient-text">work with</span>.</h2>
+          </div>
+          <p class="section-aside">
+            Skills grow through<br>
+            practice and projects.
+          </p>
         </div>
 
         <div class="skills-grid">
-          <article class="skill-card reveal">
-            <div class="skill-icon">🎬</div>
-            <h3>Video Editing</h3>
-            <p>Editing clips, arranging sequences, and refining pacing for digital content.</p>
+          <article class="skill-card glass-card" data-reveal>
+            <div class="skill-card-top">
+              <span class="skill-icon cyan-icon">▶</span>
+              <span class="skill-number">01</span>
+            </div>
+            <h3>Video editing</h3>
+            <p>
+              Editing, pacing, transitions, music synchronization,
+              and shaping footage into a coherent story.
+            </p>
+            <div class="tag-list">
+              <span>Editing</span>
+              <span>Transitions</span>
+              <span>Storytelling</span>
+            </div>
           </article>
-          <article class="skill-card reveal">
-            <div class="skill-icon">🎵</div>
-            <h3>Audio & Timing</h3>
-            <p>Working with music, timing, cuts, and transitions to improve a video's flow.</p>
+
+          <article class="skill-card glass-card" data-reveal>
+            <div class="skill-card-top">
+              <span class="skill-icon purple-icon">✳</span>
+              <span class="skill-number">02</span>
+            </div>
+            <h3>Content creation</h3>
+            <p>
+              Exploring video concepts, thumbnails, short-form content,
+              and ways to make digital media more engaging.
+            </p>
+            <div class="tag-list">
+              <span>Video content</span>
+              <span>Thumbnails</span>
+              <span>Creative ideas</span>
+            </div>
           </article>
-          <article class="skill-card reveal">
-            <div class="skill-icon">🖼️</div>
-            <h3>Thumbnails</h3>
-            <p>Creating and refining visual concepts for video thumbnails and social posts.</p>
+
+          <article class="skill-card glass-card" data-reveal>
+            <div class="skill-card-top">
+              <span class="skill-icon pink-icon">{ }</span>
+              <span class="skill-number">03</span>
+            </div>
+            <h3>Web projects</h3>
+            <p>
+              Learning how websites work through interface design,
+              web technologies, and practical project building.
+            </p>
+            <div class="tag-list">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+            </div>
           </article>
-          <article class="skill-card reveal">
-            <div class="skill-icon">💻</div>
-            <h3>Web Projects</h3>
-            <p>Building and presenting web-based projects with coding tools and AI assistance.</p>
-          </article>
-          <article class="skill-card reveal">
-            <div class="skill-icon">🧠</div>
-            <h3>AI Tools</h3>
-            <p>Using AI tools to support planning, development, and creative workflows.</p>
-          </article>
-          <article class="skill-card reveal">
-            <div class="skill-icon">📚</div>
-            <h3>Learning & Research</h3>
-            <p>Breaking problems into manageable steps and learning through practical work.</p>
+
+          <article class="skill-card glass-card" data-reveal>
+            <div class="skill-card-top">
+              <span class="skill-icon green-icon">⌘</span>
+              <span class="skill-number">04</span>
+            </div>
+            <h3>AI-assisted building</h3>
+            <p>
+              Exploring AI tools to accelerate ideas, support coding,
+              and prototype practical digital products.
+            </p>
+            <div class="tag-list">
+              <span>AI tools</span>
+              <span>Prototyping</span>
+              <span>Problem solving</span>
+            </div>
           </article>
         </div>
 
-        <div class="section-heading reveal" style="margin-top: 55px; margin-bottom: 25px;">
-          <h2 style="font-size: 1.5rem;">Tools I Use</h2>
-        </div>
-        <div class="tools-row reveal">
-          <div class="tool"><span>📹</span> CapCut</div>
-          <div class="tool"><span>🎞️</span> Filmora</div>
-          <div class="tool"><span>🌐</span> VS Code & Web Tools</div>
-          <div class="tool"><span>✨</span> AI-Assisted Tools</div>
+        <div class="tools-strip glass-card" data-reveal>
+          <span class="tools-label">TOOLS & TECHNOLOGIES</span>
+          <div class="tools-list">
+            <span>CapCut</span>
+            <span>Filmora</span>
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>JavaScript</span>
+            <span>AI tools</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="portfolio-section" id="portfolio">
+    <!-- PROJECTS -->
+    <section class="projects-section section-padding" id="projects">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="section-kicker">Selected work</div>
-          <h2>Projects & <span class="gradient-text">Portfolio</span></h2>
-          <p>Creative work and digital projects in one place.</p>
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="section-kicker">03 / SELECTED PROJECTS</span>
+            <h2>Ideas made <span class="gradient-text">real</span>.</h2>
+          </div>
+          <p class="section-aside">
+            A growing collection<br>
+            of experiments and builds.
+          </p>
         </div>
 
-        <div class="filters reveal" role="group" aria-label="Filter projects">
-          <button class="filter-btn" data-filter="all" aria-pressed="true">All Projects</button>
-          <button class="filter-btn" data-filter="video" aria-pressed="false">Video</button>
-          <button class="filter-btn" data-filter="web" aria-pressed="false">Web Projects</button>
+        <div class="project-toolbar" data-reveal>
+          <p>SELECTED WORK <span id="project-count">02 PROJECTS</span></p>
+
+          <div class="project-filters" role="group" aria-label="Filter projects">
+            <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-button" type="button" data-filter="web" aria-pressed="false">Web</button>
+            <button class="filter-button" type="button" data-filter="creative" aria-pressed="false">Creative</button>
+          </div>
         </div>
 
-        <div class="portfolio-grid">
-          <article class="project-card reveal" data-category="video">
-            <div class="project-image">
+        <div class="projects-grid" id="project-grid">
+          <article class="project-card glass-card" data-category="web" data-reveal>
+            <div class="project-image project-image-dispatch">
               <img
-                src="https://img.youtube.com/vi/zU-J6qzVu4A/hqdefault.jpg"
-                alt="Thumbnail for Tanzeel's featured video"
+                src="dashboard.png"
+                alt="Rush Dispatch Copilot dashboard interface"
                 loading="lazy"
-                onerror="this.onerror=null;this.src='https://placehold.co/640x360/111522/00eaff?text=Featured+Video';">
-              <span class="project-label">Video Editing</span>
+                data-lightbox
+              >
+              <span class="project-type">WEB / AI-ASSISTED</span>
+              <span class="project-image-index">PROJECT 001</span>
             </div>
-            <div class="project-content">
-              <h3>Featured Video Sample</h3>
-              <p>
-                A video sample selected for my portfolio. Watch the original video
-                to evaluate the actual editing, presentation, and style.
-              </p>
-              <div class="mini-tags">
-                <span class="tag">Video</span>
-                <span class="tag">Content</span>
+
+            <div class="project-body">
+              <div class="project-title-row">
+                <h3>AI Dispatch Copilot</h3>
+                <a
+                  class="project-arrow"
+                  href="https://ai-dispatch-copilot.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open AI Dispatch Copilot"
+                >↗</a>
               </div>
-              <div class="project-actions">
-                <a class="small-button" href="https://youtu.be/zU-J6qzVu4A"
-                   target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+
+              <p>
+                A dispatch-focused web project designed to help organize
+                truck and load information and support load-matching workflows.
+              </p>
+
+              <div class="tag-list">
+                <span>Web app</span>
+                <span>Dispatch</span>
+                <span>AI-assisted development</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://ai-dispatch-copilot.vercel.app/" target="_blank" rel="noopener noreferrer">
+                  View live project <span>↗</span>
+                </a>
+                <button class="text-button project-details-toggle" type="button" aria-expanded="false">
+                  More details <span>+</span>
+                </button>
+              </div>
+
+              <div class="project-details" hidden>
+                <p>
+                  This project explores truck records, load matching, and
+                  dispatch decision support. The live demo is the best place
+                  to inspect its current functionality.
+                </p>
+                <div class="project-gallery">
+                  <button type="button" class="gallery-image" aria-label="View truck dashboard screenshot">
+                    <img src="trucks.png" alt="Truck records screen" loading="lazy" data-lightbox>
+                  </button>
+                  <button type="button" class="gallery-image" aria-label="View load matching screenshot">
+                    <img src="load-matching.png" alt="Load matching screen" loading="lazy" data-lightbox>
+                  </button>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card reveal" data-category="web">
-            <div class="project-image">
-              <img
-                src="images/dashboard.png"
-                alt="Dashboard screenshot of the AI Dispatch Copilot project"
-                loading="lazy">
-              <span class="project-label">Web Project</span>
+          <article class="project-card glass-card" data-category="creative" data-reveal>
+            <div class="project-image project-image-creative">
+              <div class="creative-preview">
+                <span class="creative-preview-kicker">CREATIVE ARCHIVE / 002</span>
+                <span class="creative-preview-title">FRAME<span>BY</span>FRAME.</span>
+                <span class="creative-preview-footer">EDIT / EXPERIMENT / REPEAT</span>
+              </div>
+              <span class="project-type">VIDEO / CREATIVE</span>
+              <span class="project-image-index">PROJECT 002</span>
             </div>
 
-            <div class="screenshot-gallery" aria-label="AI Dispatch Copilot screenshots">
-              <button class="screenshot-button" data-image="images/dashboard.png"
-                data-caption="AI Dispatch Copilot — Dashboard" aria-label="Enlarge dashboard screenshot">
-                <img src="images/dashboard.png" alt="Dashboard preview" loading="lazy">
-              </button>
-              <button class="screenshot-button" data-image="images/trucks.png"
-                data-caption="AI Dispatch Copilot — Trucks" aria-label="Enlarge trucks screenshot">
-                <img src="images/trucks.png" alt="Trucks section preview" loading="lazy">
-              </button>
-              <button class="screenshot-button" data-image="images/load-matching.png"
-                data-caption="AI Dispatch Copilot — Load Matching" aria-label="Enlarge load matching screenshot">
-                <img src="images/load-matching.png" alt="Load matching preview" loading="lazy">
-              </button>
-            </div>
-            <p class="screenshot-caption">Select any screenshot to enlarge it.</p>
+            <div class="project-body">
+              <div class="project-title-row">
+                <h3>Video editing & content</h3>
+                <a
+                  class="project-arrow"
+                  href="https://www.youtube.com/watch?v=zU-J6qzVu4A"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Watch featured video"
+                >↗</a>
+              </div>
 
-            <div class="project-content">
-              <h3>AI Dispatch Copilot</h3>
               <p>
-                A web project designed to help organize trucking and load information,
-                compare trucks with loads, and present dispatch-related details in a
-                clearer workflow. Developed with coding tools and AI-assisted support.
+                A space for creative edits, visual experiments, pacing,
+                transitions, and digital storytelling.
               </p>
-              <div class="mini-tags">
-                <span class="tag">Web App</span>
-                <span class="tag">AI-Assisted Development</span>
-                <span class="tag">Logistics</span>
+
+              <div class="tag-list">
+                <span>Video editing</span>
+                <span>Content creation</span>
+                <span>Visual storytelling</span>
               </div>
-              <div class="project-actions">
-                <a class="small-button" href="https://ai-dispatch-copilot.vercel.app/"
-                  target="_blank" rel="noopener noreferrer">Open Live Project ↗</a>
-                <button class="small-button" id="projectDetailsButton" type="button">Project Details +</button>
-              </div>
-              <div id="projectDetails" hidden style="margin-top: 18px;">
-                <p>
-                  <strong style="color: var(--cyan);">My role:</strong>
-                  I worked on the project concept, feature planning, and implementation
-                  with coding tools and AI assistance.
-                </p>
-                <p style="margin-top: 10px;">
-                  <strong style="color: var(--cyan);">Important:</strong>
-                  This is a project demonstration, not a claim of production readiness
-                  or independently verified dispatch accuracy. Open the live site to
-                  inspect the current implementation.
-                </p>
+
+              <div class="project-links">
+                <a href="https://www.youtube.com/watch?v=zU-J6qzVu4A" target="_blank" rel="noopener noreferrer">
+                  Watch featured video <span>↗</span>
+                </a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                  YouTube <span>↗</span>
+                </a>
               </div>
             </div>
           </article>
         </div>
 
-        <p class="form-note" style="text-align:center; margin-top: 25px;">
-          More project samples can be added as they become available.
+        <p class="projects-note">
+          This portfolio is a work in progress. More verified projects
+          and original creative work will be added over time.
         </p>
       </div>
     </section>
 
-    <section id="services">
+    <!-- CREATIVE WORK -->
+    <section class="creative-section section-padding" id="creative-work">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="section-kicker">Ways I can help</div>
-          <h2>Services & <span class="gradient-text">Work</span></h2>
-          <p>Services to discuss based on your project requirements.</p>
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="section-kicker">04 / CREATIVE PLAYGROUND</span>
+            <h2>Curiosity in <span class="gradient-text">motion</span>.</h2>
+          </div>
+          <p class="section-aside">
+            A little space for<br>
+            experimentation.
+          </p>
         </div>
 
-        <div class="services-grid">
-          <article class="service-card reveal">
-            <div class="service-number">01</div>
-            <h3>Short-Form Video Editing</h3>
-            <p>Editing short videos for social media, subject to the style and scope agreed.</p>
+        <div class="creative-grid">
+          <article class="creative-tile creative-tile-large glass-card" data-reveal>
+            <div class="tile-art tile-art-orbit" aria-hidden="true">
+              <div class="tile-orbit tile-orbit-a"></div>
+              <div class="tile-orbit tile-orbit-b"></div>
+              <div class="tile-orbit tile-orbit-c"></div>
+              <div class="tile-orbit-core">T.</div>
+            </div>
+            <div class="tile-copy">
+              <span class="section-kicker">EXPERIMENT 001</span>
+              <h3>Digital aesthetics</h3>
+              <p>Exploring shape, light, typography, and interface design.</p>
+            </div>
           </article>
-          <article class="service-card reveal">
-            <div class="service-number">02</div>
-            <h3>YouTube Video Editing</h3>
-            <p>Helping organize footage, refine cuts, and improve the overall viewing flow.</p>
+
+          <article class="creative-tile glass-card" data-reveal>
+            <div class="tile-art tile-art-type" aria-hidden="true">
+              <span>CREATE</span>
+              <span class="type-outline">MORE.</span>
+            </div>
+            <div class="tile-copy">
+              <span class="section-kicker">EXPERIMENT 002</span>
+              <h3>Type & composition</h3>
+              <p>Bold layouts and visual communication.</p>
+            </div>
           </article>
-          <article class="service-card reveal">
-            <div class="service-number">03</div>
-            <h3>Thumbnail Design</h3>
-            <p>Creating visual thumbnail concepts for YouTube and other content platforms.</p>
-          </article>
-          <article class="service-card reveal">
-            <div class="service-number">04</div>
-            <h3>Social Media Content</h3>
-            <p>Preparing and formatting video content for the platform you plan to use.</p>
-          </article>
-          <article class="service-card reveal">
-            <div class="service-number">05</div>
-            <h3>Basic Web Project Support</h3>
-            <p>Discussing small web projects, page layouts, and improvements within my current skills.</p>
-          </article>
-          <article class="service-card reveal">
-            <div class="service-number">06</div>
-            <h3>AI-Assisted Prototyping</h3>
-            <p>Helping turn a project idea into a prototype using suitable development tools.</p>
+
+          <article class="creative-tile glass-card" data-reveal>
+            <div class="tile-art tile-art-pixels" aria-hidden="true">
+              <span class="pixel pixel-one"></span>
+              <span class="pixel pixel-two"></span>
+              <span class="pixel pixel-three"></span>
+              <span class="pixel pixel-four"></span>
+              <span class="pixel pixel-five"></span>
+              <span class="pixel pixel-six"></span>
+              <span class="pixel pixel-seven"></span>
+              <span class="pixel pixel-eight"></span>
+              <span class="pixel pixel-nine"></span>
+            </div>
+            <div class="tile-copy">
+              <span class="section-kicker">EXPERIMENT 003</span>
+              <h3>Ideas in progress</h3>
+              <p>Small experiments that can lead to bigger projects.</p>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="contact-section" id="contact">
+    <!-- LIVE WIDGET -->
+    <section class="status-section section-padding">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="section-kicker">Let's talk</div>
-          <h2>Get In <span class="gradient-text">Touch</span></h2>
-          <p>Have a project in mind? Send the details and let's discuss it.</p>
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-card reveal">
-            <h3>Contact Information</h3>
-            <p>The easiest ways to reach me about work or collaboration.</p>
-
-            <div class="contact-links">
-              <a class="contact-link" href="mailto:mtanzeel.9637@gmail.com">
-                <span class="contact-icon">✉️</span>
-                <span><strong>Email</strong><small>mtanzeel.9637@gmail.com</small></span>
-              </a>
-              <a class="contact-link" href="tel:+923312288018">
-                <span class="contact-icon">📞</span>
-                <span><strong>Phone</strong><small>+92 331 2288018</small></span>
-              </a>
-              <a class="contact-link" href="https://www.instagram.com/tanzeel_9211"
-                 target="_blank" rel="noopener noreferrer">
-                <span class="contact-icon">📷</span>
-                <span><strong>Instagram</strong><small>@tanzeel_9211</small></span>
-              </a>
-              <a class="contact-link" href="https://youtube.com/@gachauniverse-wk1ww"
-                 target="_blank" rel="noopener noreferrer">
-                <span class="contact-icon">▶️</span>
-                <span><strong>YouTube</strong><small>Visit channel</small></span>
-              </a>
-            </div>
+        <div class="status-widget glass-card" data-reveal>
+          <div class="status-widget-left">
+            <span class="section-kicker">A LITTLE LIVE WIDGET</span>
+            <h2>Currently on <span class="gradient-text">Pakistan time</span>.</h2>
+            <p>A small real-time detail from my corner of the world.</p>
           </div>
 
-          <div class="contact-card reveal">
-            <h3>Send a Project Enquiry</h3>
-            <p>Complete the form to prepare an email with your project details.</p>
+          <div class="clock-panel">
+            <span class="clock-location"><span class="status-dot"></span> MULTAN, PAKISTAN</span>
+            <time id="live-clock" datetime="">--:--:--</time>
+            <span id="live-date">Loading date...</span>
+            <span class="clock-timezone">ASIA / KARACHI · UTC+05:00</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <form id="contactForm">
-              <div class="form-group">
-                <label for="name">Your name</label>
-                <input id="name" name="name" autocomplete="name" required maxlength="100">
-              </div>
-              <div class="form-group">
-                <label for="email">Your email</label>
-                <input id="email" name="email" type="email" autocomplete="email" required maxlength="150">
-              </div>
-              <div class="form-group">
-                <label for="message">Project details</label>
-                <textarea id="message" name="message" required maxlength="4000"
-                  placeholder="What do you need help with? Include your deadline and requirements."></textarea>
-              </div>
-              <button class="button button-primary" type="submit">Prepare Email ↗</button>
-              <p class="form-note" id="formNote" aria-live="polite">
-                This opens your email app with a prepared message. It does not send anything automatically.
-              </p>
-            </form>
+    <!-- CONTACT -->
+    <section class="contact-section section-padding" id="contact">
+      <div class="container">
+        <div class="contact-panel" data-reveal>
+          <div class="contact-decoration" aria-hidden="true">
+            <span class="contact-decoration-ring"></span>
+            <span class="contact-decoration-ring ring-two"></span>
+            <span class="contact-decoration-cross">✳</span>
+          </div>
+
+          <span class="section-kicker">05 / CONTACT</span>
+
+          <h2>Have an idea?<br>Let's make it <span class="gradient-text">happen</span>.</h2>
+
+          <p>
+            Interested in video editing, creative projects, or digital
+            products? Get in touch and let's talk.
+          </p>
+
+          <div class="contact-actions">
+            <a class="button button-primary" href="mailto:mtanzeel.9637@gmail.com">
+              Email me <span>↗</span>
+            </a>
+            <button class="button button-secondary" id="copy-email" type="button" data-email="mtanzeel.9637@gmail.com">
+              Copy email <span>▣</span>
+            </button>
+          </div>
+
+          <p class="copy-feedback" id="copy-feedback" aria-live="polite"></p>
+
+          <div class="contact-details">
+            <a href="mailto:mtanzeel.9637@gmail.com">mtanzeel.9637@gmail.com</a>
+            <a href="https://www.instagram.com/tanzeel_9211/" target="_blank" rel="noopener noreferrer">
+              Instagram ↗
+            </a>
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+              YouTube ↗
+            </a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>© <span id="year"></span> <strong>Mohammad Tanzeel</strong>. Built with care.</p>
-      <p style="margin-top: 5px; font-size: .9rem;">Multan, Pakistan · Creative work and digital projects</p>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <a class="brand footer-brand" href="#top">
+        <span class="brand-symbol">T<span>.</span></span>
+        <span class="brand-name">TANZEEL<span class="brand-period">/</span>LAB</span>
+      </a>
+
+      <p>Designed with curiosity. Built one step at a time.</p>
+
+      <a class="back-to-top" href="#top">BACK TO TOP ↑</a>
+
+      <span class="footer-copyright">
+        © <span id="current-year">2026</span> MOHAMMAD TANZEEL
+      </span>
     </div>
   </footer>
 
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-
-  <div class="modal" id="imageModal" role="dialog" aria-modal="true"
-    aria-label="Screenshot preview" aria-hidden="true">
-    <div class="modal-content">
-      <button class="modal-close" id="modalClose" aria-label="Close image preview">×</button>
-      <img id="modalImage" src="" alt="">
-      <p class="modal-caption" id="modalCaption"></p>
+  <!-- IMAGE LIGHTBOX -->
+  <div
+    class="lightbox"
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Image preview"
+    aria-hidden="true"
+    hidden
+  >
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close image preview">×</button>
+    <button class="lightbox-backdrop" id="lightbox-backdrop" type="button" aria-label="Close image preview"></button>
+    <div class="lightbox-content">
+      <img id="lightbox-image" src="" alt="">
+      <p id="lightbox-caption"></p>
     </div>
   </div>
 
-  <script>
-    // Current year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Mobile navigation
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    function closeMenu() {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Open navigation");
-      menuToggle.textContent = "☰";
-    }
-
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-      menuToggle.textContent = isOpen ? "×" : "☰";
-    });
-
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", closeMenu);
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        closeMenu();
-        closeImageModal();
-      }
-    });
-
-    // Reveal elements as they enter the viewport
-    const revealItems = document.querySelectorAll(".reveal");
-
-    if ("IntersectionObserver" in window) {
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
-
-      revealItems.forEach(item => revealObserver.observe(item));
-    } else {
-      revealItems.forEach(item => item.classList.add("visible"));
-    }
-
-    // Project category filters
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const projectCards = document.querySelectorAll(".project-card");
-
-    filterButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        const filter = button.dataset.filter;
-
-        filterButtons.forEach(item => {
-          item.setAttribute("aria-pressed", String(item === button));
-        });
-
-        projectCards.forEach(card => {
-          card.hidden = filter !== "all" && card.dataset.category !== filter;
-        });
-      });
-    });
-
-    // Screenshot lightbox
-    const imageModal = document.getElementById("imageModal");
-    const modalImage = document.getElementById("modalImage");
-    const modalCaption = document.getElementById("modalCaption");
-    const modalClose = document.getElementById("modalClose");
-    let previousFocus = null;
-
-    document.querySelectorAll(".screenshot-button").forEach(button => {
-      button.addEventListener("click", () => {
-        previousFocus = button;
-        modalImage.src = button.dataset.image;
-        modalImage.alt = button.dataset.caption;
-        modalCaption.textContent = button.dataset.caption;
-        imageModal.classList.add("open");
-        imageModal.setAttribute("aria-hidden", "false");
-        document.body.classList.add("modal-open");
-        modalClose.focus();
-      });
-    });
-
-    function closeImageModal() {
-      if (!imageModal.classList.contains("open")) return;
-      imageModal.classList.remove("open");
-      imageModal.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("modal-open");
-      modalImage.src = "";
-      if (previousFocus) previousFocus.focus();
-    }
-
-    modalClose.addEventListener("click", closeImageModal);
-
-    imageModal.addEventListener("click", event => {
-      if (event.target === imageModal) closeImageModal();
-    });
-
-    // Expand project details
-    const detailsButton = document.getElementById("projectDetailsButton");
-    const projectDetails = document.getElementById("projectDetails");
-
-    detailsButton.addEventListener("click", () => {
-      const isHidden = projectDetails.hidden;
-      projectDetails.hidden = !isHidden;
-      detailsButton.textContent = isHidden ? "Project Details −" : "Project Details +";
-      detailsButton.setAttribute("aria-expanded", String(isHidden));
-    });
-
-    detailsButton.setAttribute("aria-expanded", "false");
-
-    // Contact form: prepare an email; no backend is connected
-    document.getElementById("contactForm").addEventListener("submit", event => {
-      event.preventDefault();
-
-      const form = event.currentTarget;
-      if (!form.reportValidity()) return;
-
-      const name = form.elements.name.value.trim();
-      const senderEmail = form.elements.email.value.trim();
-      const message = form.elements.message.value.trim();
-
-      const subject = "Portfolio enquiry from " + name;
-      const body =
-        "Name: " + name + "\n" +
-        "Reply email: " + senderEmail + "\n\n" +
-        "Project details:\n" + message;
-
-      const mailto = "mailto:mtanzeel.9637@gmail.com" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-      document.getElementById("formNote").textContent =
-        "Your email app should open with a prepared draft. Review it and press Send there.";
-
-      window.location.href = mailto;
-    });
-
-    // Back-to-top button
-    const backToTop = document.getElementById("backToTop");
-
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("visible", window.scrollY > 500);
-    }, { passive: true });
-
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
+  <noscript>
+    <p class="noscript-message">
+      This portfolio works best with JavaScript enabled. You can still
+      browse the main content and open the project links.
+    </p>
+  </noscript>
 </body>
 </html>
